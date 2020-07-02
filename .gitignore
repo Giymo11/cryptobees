@@ -1,0 +1,11 @@
+# Project exclude paths
+/client/target/
+/client/target/scala-2.13/classes/
+/project/project/target/
+/project/target/
+/server/target/
+/shared/.js/target/
+/shared/.js/target/scala-2.13/classes/
+/shared/.jvm/target/
+/shared/.jvm/target/scala-2.13/classes/
+/target/
