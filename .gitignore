@@ -9,3 +9,5 @@
 /shared/.jvm/target/
 /shared/.jvm/target/scala-2.13/classes/
 /target/
+
+.idea

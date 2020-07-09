@@ -1,4 +1,4 @@
-val scalajsVersion = "0.6.33"
+val scalajsVersion = "1.1.0"
 val isV1 = scalajsVersion.startsWith("1.")
 
 val `sbt-web-scalajs_Version` = if (isV1) "1.1.0" else "1.1.0-0.6"
