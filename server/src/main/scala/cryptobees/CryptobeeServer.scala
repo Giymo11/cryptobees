@@ -8,7 +8,7 @@ import org.http4s.headers.`Content-Type`
 import org.http4s.implicits._
 import org.http4s.server.blaze._
 import org.http4s.server.staticcontent._
-import scalatags.Text.all._
+import scalatags.Text.all.{script, _}
 
 import scala.concurrent.ExecutionContext.global
 
@@ -32,7 +32,7 @@ object CryptobeeServer extends IOApp {
 
   val index = "<!DOCTYPE html>" + html(
     head(
-      script(src := "/assets/client-opt-bundle.js")
+
     ),
     body(
       h1("This is my title"),
@@ -46,7 +46,8 @@ object CryptobeeServer extends IOApp {
         p(hidden)(
           "I am hidden"
         )
-      )
+      ),
+      script(src := "/assets/client-opt-bundle.js")
     )
   )
 

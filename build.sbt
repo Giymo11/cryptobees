@@ -1,4 +1,5 @@
 // shadow sbt-scalajs' crossProject and CrossType from Scala.js 0.6.x
+
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "cryptobees"
@@ -29,7 +30,8 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "scalatags" % "0.9.1",
       "com.lihaoyi" %%% "upickle" % "1.1.0",
-    ))
+    )
+  )
   .jsConfigure(_.enablePlugins(ScalaJSBundlerPlugin))
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
@@ -37,6 +39,8 @@ lazy val sharedJs = shared.js
 
 
 lazy val server = project
+  .dependsOn(sharedJvm)
+  .enablePlugins(WebScalaJSBundlerPlugin)
   .settings(
     scalaJSProjects := Seq(client),
     pipelineStages in Assets := Seq(scalaJSPipeline),
@@ -59,14 +63,17 @@ lazy val server = project
     WebKeys.packagePrefix in Assets := "public/",
     managedClasspath in Runtime += (packageBin in Assets).value
   )
-  .enablePlugins(SbtWeb, WebScalaJSBundlerPlugin)
-  .dependsOn(sharedJvm)
+
 
 
 
 lazy val client = project
+  .dependsOn(sharedJs)
+  .enablePlugins(ScalaJSBundlerPlugin)
   .settings(
+    webpackBundlingMode := BundlingMode.LibraryAndApplication(),
     scalaJSUseMainModuleInitializer := true,
+
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "1.0.0",
 
@@ -74,12 +81,10 @@ lazy val client = project
       "org.endpoints4s" %%% "json-schema-generic" % endpoints4sVersionJs,
 
       "org.endpoints4s" %%% "xhr-client" % endpoints4sVersionJs,
-
     ),
     npmDependencies in Compile ++= Seq(
       "snabbdom" -> "0.5.3",
       "d3" -> "5.16.0"
     )
   )
-  .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin)
-  .dependsOn(sharedJs)
+
