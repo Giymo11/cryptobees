@@ -32,7 +32,7 @@ object CryptobeeServer extends IOApp {
 
   val index = "<!DOCTYPE html>" + html(
     head(
-      script(src := "/assets/client-fastopt.js")
+      script(src := "/assets/client-opt-bundle.js")
     ),
     body(
       h1("This is my title"),

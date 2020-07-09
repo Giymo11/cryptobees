@@ -73,9 +73,13 @@ lazy val client = project
       "org.endpoints4s" %%% "algebra" % endpoints4sVersionJs,
       "org.endpoints4s" %%% "json-schema-generic" % endpoints4sVersionJs,
 
-      "org.endpoints4s" %%% "xhr-client" % endpoints4sVersionJs
+      "org.endpoints4s" %%% "xhr-client" % endpoints4sVersionJs,
+
     ),
-    npmDependencies in Compile += "snabbdom" -> "0.5.3"
+    npmDependencies in Compile ++= Seq(
+      "snabbdom" -> "0.5.3",
+      "d3" -> "5.16.0"
+    )
   )
   .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin)
   .dependsOn(sharedJs)
